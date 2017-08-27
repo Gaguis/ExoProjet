@@ -1,0 +1,7 @@
+<jboss-web>
+    <context-root>/exo</context-root>
+    <replication-config>
+        <replication-granularity>ATTRIBUTE</replication-granularity>
+        <replication-trigger>SET</replication-trigger>
+    </replication-config>
+</jboss-web>

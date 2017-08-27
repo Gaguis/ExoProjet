@@ -1,0 +1,115 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <script name="jquery/jquery.js" library="primefaces"></script>
+    <title>Register Client</title>
+</h:head>
+<h:body>
+    <ui:composition template="/WEB-INF/template/Layout.xhtml">
+        <ui:param name="hideFooterAndSidebar" value="true" />
+        <ui:define name="content">
+            <div align="center">
+
+                <h:form id="clientForm">
+                    <p:growl id="msgs" showDetail="true"/>
+
+                    <p:dataTable id="clientTable" var="client" value="#{dtEditView.listClients}" style="margin-bottom:20px" editable="true"  selectionMode="multiple" selection="#{dtEditView.selectedClients}" rowKey="#{client.id}">
+                        <f:facet name="header">
+                            Liste des clients
+                        </f:facet>
+
+                        <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":clientForm:msgs" />
+                        <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":clientForm:msgs" />
+
+
+                        <p:column headerText="Id">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{client.id}" /></f:facet>
+                                <f:facet name="input"><p:inputText id="modelInput" value="#{client.id}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Nom">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{client.nom}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{client.nom}" style="width:100%" label="Nom"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Prénom">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{client.prenom}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{client.prenom}" style="width:100%" label="Prénom"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Adresse">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{client.adresse}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{client.adresse}" style="width:100%" label="Adresse"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Langue">
+                             <p:cellEditor>
+                                 <f:facet name="output"><h:outputText value="#{client.langue}" /></f:facet>
+                                 <f:facet name="input">
+                                     <h:selectOneMenu value="#{client.langue}" style="width:100%" converter="#{langueConverter}">
+                                         <f:selectItems value="#{dtEditView.langues}" var="la" itemLabel="#{la.langue}" itemValue="#{la}" />
+                                     </h:selectOneMenu>
+                                 </f:facet>
+                             </p:cellEditor>
+                         </p:column>
+<!--
+                         <p:column headerText="Color">
+                             <p:cellEditor>
+                                 <f:facet name="output"><h:outputText value="#{car.color}" /></f:facet>
+                                 <f:facet name="input">
+                                     <h:selectOneMenu value="#{car.color}" style="width:100%">
+                                         <f:selectItems value="#{dtEditView.colors}" var="color" itemLabel="#{color}" itemValue="#{color}" />
+                                     </h:selectOneMenu>
+                                 </f:facet>
+                             </p:cellEditor>
+                         </p:column>-->
+
+                        <p:column style="width:32px">
+                            <p:rowEditor />
+
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton update=":clientForm" icon="ui-icon-trash" value="Supprimer"
+                                             action="#{dtEditView.deleteAction}"  ajax="true"/>
+
+                            <p:commandButton update=":clientForm" icon="ui-icon-disk" value="Ajouter"
+                                             oncomplete="PF('AjoutClient').show()"  ajax="true"/>
+                        </f:facet>
+
+                    </p:dataTable>
+
+
+                    <p:dialog header="Client Form" widgetVar="AjoutClient" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="ClientDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2"  columnClasses="label,value">
+                        <f:facet name="header">
+                            Ajout de nouveau client
+                        </f:facet>
+                        <p:outputLabel value="Nom:"></p:outputLabel>
+                        <p:inputText value="#{dtEditView.newClient.nom}"></p:inputText>
+                        <p:outputLabel value="Prenom:"></p:outputLabel>
+                        <p:inputText value="#{dtEditView.newClient.prenom}"></p:inputText>
+                        <p:outputLabel value="Adresse:"></p:outputLabel>
+                        <p:inputText value="#{dtEditView.newClient.adresse}"></p:inputText>
+                    </p:panelGrid>
+                    <p:commandButton value="Valider" id="Valider" update=":clientForm" actionListener="#{dtEditView.onSubmit}" ajax="true"/>
+                    </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

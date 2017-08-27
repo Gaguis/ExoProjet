@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body>
+    <ui:composition template="/WEB-INF/template/Layout.xhtml">
+        <ui:param name="hideFooterAndSidebar" value="true" />
+        <ui:define name="content">
+            <div align="center">
+                <h3>LOGIN</h3>
+                <form name='loginForm'
+                      action="perform_login" method='POST'>
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                        <table>
+                            <tr>
+                                <td>User:</td>
+                                <td><input type='text' name='username' value=''/></td>
+                            </tr>
+                            <tr>
+                                <td>Password:</td>
+                                <td><input type='password' name='password' /></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input name="submit" type="submit"
+                                           value="submit" />
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                </form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

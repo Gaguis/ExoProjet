@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure>
+    <deployment>
+        <dependencies>
+            <module name="org.primefaces" meta-inf="export" />
+            <module name="javax.faces.api" />
+            <module name="com.sun.jsf-impl" />
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>
